@@ -23,8 +23,20 @@ int part1(std::string const& input) {
     return sum;
 }
 
+int part2(std::string const& input) {
+    std::regex doDont(R"((?:do\(\)|^)(.*?)(?:don't\(\)|$))");
+    std::string newInput = "";
+    for (auto i = std::sregex_token_iterator(input.begin(), input.end(), doDont, {0}); i != std::sregex_token_iterator(); ++i) {
+        //std::cout << "found" << i->str() << std::endl;
+        newInput += i->str();
+    }
+    //std::cout << newInput << std::endl;
+    return part1(newInput);
+}
+
 int main() {
     std::string input = readInput("input.txt");
     std::cout << part1(input) << std::endl;
+    std::cout << part2(input) << std::endl;
     return 0;
 }
